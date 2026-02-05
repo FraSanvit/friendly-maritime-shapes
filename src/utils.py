@@ -273,6 +273,9 @@ def split_maritime_by_proximity(
     output_path.parent.mkdir(parents=True, exist_ok=True)
     gdf_combined.to_parquet(output_path, index=False)
 
+    # Plot the combined shapes
+    plot_map(gdf)
+
     return gdf_combined
 
 
@@ -284,8 +287,12 @@ def plot_map(gdf):
     png_path = cnf.result_shape_path.with_suffix(".png")
     png_path.parent.mkdir(parents=True, exist_ok=True)
 
+    color_map = {"maritime": "lightblue", "land": "steelblue"}
+
     fig, ax = plt.subplots(figsize=(8, 8))
-    gdf.plot(ax=ax)
+    gdf.plot(
+        ax=ax, color=gdf["shape_class"].map(color_map), edgecolor="white", linewidth=0.5
+    )
 
     plt.savefig(png_path, dpi=300, bbox_inches="tight")
     plt.close()
