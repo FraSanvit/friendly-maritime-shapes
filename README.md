@@ -10,6 +10,12 @@ This repository provides Python tools to split maritime regions defined by the u
 Create your folder scenario in `/resource/{scenario-name}`, and place your reference maritime shapefile and your custom shapefile.
 In `config.py`, define your target folder (`scenario`) and specify the reference, the custom input shape and the output shape.
 
+## Get started
+
+```
+conda env create -f requirements.yml
+```
+
 ## Methodology
 
 - **Read and validate input shapes**: Load user-defined coastal and maritime regions (GeoParquet or Shapefile). Check required columns: `shape_id`, `country_id`, `geometry`, `shape_class`.
