@@ -71,15 +71,15 @@ def get_coastal_subregions(shape, ref):
         List of country_ids that have maritime polygons.
     """
 
-    # 1️⃣ Identify countries with maritime
+    # Identify countries with maritime
     maritime_country_id = ref.loc[
         ref["shape_class"] == "maritime", "country_id"
     ].unique()
 
-    # 2️⃣ Filter shape for these countries
+    # Filter shape for these countries
     shape_filtered = shape[shape["country_id"].isin(maritime_country_id)].copy()
 
-    # 3️⃣ Loop over countries and select subregions that border maritime polygon
+    # Loop over countries and select subregions that border maritime polygon
     coastal_subregions_list = []
 
     for country in maritime_country_id:
