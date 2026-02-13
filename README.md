@@ -7,7 +7,7 @@ This repository provides Python tools to split maritime regions defined by the u
 
 ## User input
 
-Create your folder scenario in `/resource/{scenario-name}`, and place your reference maritime shapefile and your custom shapefile.
+Create your scenario folder in `/resource/{scenario-name}`, and place your reference maritime shapefile and your custom shapefile.
 In `config.py`, define your target folder (`scenario`) and specify the reference, the custom input shape and the output shape.
 
 ## Get started
