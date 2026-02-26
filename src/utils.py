@@ -23,7 +23,8 @@ REQUIRED_COLUMNS = {
 
 def read_and_validate_shapes(path):
     """
-    Read a GeoDataFrame and check for required columns.
+    Read a GeoDataFrame, check required columns,
+    and ensure CRS is EPSG:3035.
 
     Parameters
     ----------
@@ -47,7 +48,12 @@ def read_and_validate_shapes(path):
     if missing:
         missing_str = ", ".join(sorted(missing))
         raise ValueError(f"{path.name} is missing required columns: {missing_str}")
-
+    
+    if gdf.crs is None:
+        raise ValueError(f"{path.name} has no CRS defined.")
+    
+    gdf = gdf.to_crs(cnf.CRS)
+    
     return gdf
 
 
@@ -279,7 +285,7 @@ def split_maritime_by_proximity(
     return gdf_combined
 
 
-def plot_map(gdf):
+def plot_map(gdf, title=None):
     """
     Plot GeoDataFrame and save PNG next to the parquet result.
     """
@@ -294,7 +300,11 @@ def plot_map(gdf):
         ax=ax, color=gdf["shape_class"].map(color_map), edgecolor="white", linewidth=0.5
     )
 
+    if title is not None:
+        ax.set_title(title, fontsize=14)
+
     plt.savefig(png_path, dpi=300, bbox_inches="tight")
+    plt.show()
     plt.close()
 
     return png_path
