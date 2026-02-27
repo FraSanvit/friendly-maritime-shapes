@@ -12,8 +12,8 @@ def add_maritime_shapes():
     split_maritime_by_proximity(
         shape,
         ref,
-        grid_spacing=0.1,
-        coast_spacing=20000,
+        grid_spacing=0.11, #0.1
+        coast_spacing=50000, # 20_000
     )
 
 
