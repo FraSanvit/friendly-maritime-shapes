@@ -273,6 +273,8 @@ def split_maritime_by_proximity(
     gdf["shape_class"] = "maritime"
 
     gdf_combined = pd.concat([shape, gdf], ignore_index=True)
+    # Avoid duplicates in shape_id that has to be unique
+    gdf_combined["shape_id"] = gdf_combined["shape_id"] + "_" + gdf_combined["shape_class"]
 
     # Save as parquet
     output_path = cnf.result_shape_path
@@ -302,6 +304,21 @@ def plot_map(gdf, title=None):
 
     if title is not None:
         ax.set_title(title, fontsize=14)
+
+    # Axis labels
+    ax.set_xlabel("Longitude", fontsize=14)
+    ax.set_ylabel("Latitude", fontsize=14)
+
+    # Axis limits
+    # ax.set_xlim(-35, 40)
+    # ax.set_ylim(30, 75)
+
+    # Tick label size
+    ax.tick_params(axis="both", labelsize=14)
+
+    # Title
+    if title is not None:
+        ax.set_title(title, fontsize=18)
 
     plt.savefig(png_path, dpi=300, bbox_inches="tight")
     plt.show()
