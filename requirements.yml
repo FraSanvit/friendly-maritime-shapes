@@ -1,4 +1,4 @@
-name: friendly-maritime-shapes   # <-- name of the environment
+name: friendly-maritime-shapes
 channels:
   - conda-forge
   - defaults
